@@ -27,16 +27,16 @@ class Homepage extends React.Component {
   handleCheck  = get=>() => {
     const data = this.props.store;
     data[get._key].check = !get.check;
-    const save = JSON.stringify(data);
-    localStorage.setItem('data',save)
     const Arr = _.keys(data).reduce((prev, cur) => {
-        prev.push({
-          _key: cur,
-          ...data[cur]
-        });
-        return prev;     
-      }, []); 
-    this.props.dispatch(savedata(Arr));
+      prev.push({
+        _key: cur,
+        ...data[cur]
+      });
+      return prev;     
+    }, []); 
+  this.props.dispatch(savedata(Arr));
+  const save = JSON.stringify(Arr);
+  localStorage.setItem('data',save)
   };
 
   onChange=value=>(e)=>{

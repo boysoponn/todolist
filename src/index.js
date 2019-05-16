@@ -9,7 +9,7 @@ import rootReducer from './reducers'
 
 const store = createStore(rootReducer)
 store.subscribe(()=>{
-  console.log("Update",store.getState());
+  // console.log("Update",store.getState());
 })
 
 const MyApp = () => (
