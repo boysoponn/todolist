@@ -11,14 +11,8 @@ class App extends Component {
     let data = localStorage.getItem("data");
     if(data!==null){
     let g = JSON.parse(data);
-    const Arr = _.keys(g).reduce((prev, cur) => {
-      prev.push({
-        _key: cur,
-        ...g[cur]
-      });
-      return prev;     
-    }, []); 
-    this.props.dispatch(savedata(Arr));      
+    this.props.dispatch(savedata(g)); 
+   
     }
   }
 

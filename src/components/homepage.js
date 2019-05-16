@@ -24,19 +24,19 @@ class Homepage extends React.Component {
   handleClose = name => () => {
     this.setState({ [name]: false , title:"",description:""});
   };
+  
   handleCheck  = get=>() => {
     const data = this.props.store;
-    data[get._key].check = !get.check;
-    const Arr = _.keys(data).reduce((prev, cur) => {
-      prev.push({
-        _key: cur,
-        ...data[cur]
-      });
-      return prev;     
-    }, []); 
-  this.props.dispatch(savedata(Arr));
-  const save = JSON.stringify(Arr);
-  localStorage.setItem('data',save)
+    const key = get._key;
+    var getkey = data.map(function(item) { return item._key; }).indexOf(key);
+    data[getkey].check = !get.check;
+    this.props.dispatch(savedata(data));
+    const save = JSON.stringify(data);
+    localStorage.setItem('data',save);
+    this.setState({
+      title:"",
+      description:""
+    })
   };
 
   onChange=value=>(e)=>{
@@ -47,17 +47,10 @@ class Homepage extends React.Component {
 
    add=()=>{
      const data = this.props.store;
-     data.push({title:this.state.title,description:this.state.description,check:false})
-     const Arr = _.keys(data).reduce((prev, cur) => {
-        prev.push({
-          _key: cur,
-          ...data[cur]
-        });
-        return prev;     
-      }, []); 
-    this.props.dispatch(savedata(Arr));
-    const save = JSON.stringify(Arr);
-    localStorage.setItem('data',save)
+     data.push({_key:this.state.title,title:this.state.title,description:this.state.description,check:false})
+     this.props.dispatch(savedata(data));
+     const save = JSON.stringify(data);
+     localStorage.setItem('data',save)
      this.setState({
        openAdd:false,
        title:"",
@@ -67,17 +60,15 @@ class Homepage extends React.Component {
 
     delete=key=>()=>{
         const data = this.props.store;
-        var remove = data.map(function(item) { return item._key; }).indexOf(key);
-        data.splice(remove, 1);
-        const Arr = _.keys(data).reduce((prev, cur) => {
-            prev.push({
-              ...data[cur]
-            });
-            return prev;     
-          }, []);   
-        this.props.dispatch(savedata(Arr));
-        const save = JSON.stringify(Arr);
+        var getkey = data.map(function(item) { return item._key; }).indexOf(key);
+        data.splice(getkey, 1);
+        this.props.dispatch(savedata(data));
+        const save = JSON.stringify(data);
         localStorage.setItem('data',save)
+        this.setState({
+          title:"",
+          description:""
+        })
     }
 
     edit=data=>()=>{
@@ -93,17 +84,11 @@ class Homepage extends React.Component {
     ok=()=>{
         const data = this.props.store;
         const key = this.state.key;
-        data[key].title = this.state.title;
-        data[key].description = this.state.description;
-        const Arr = _.keys(data).reduce((prev, cur) => {
-            prev.push({
-              _key: cur,
-              ...data[cur]
-            });
-            return prev;     
-          }, []); 
-        this.props.dispatch(savedata(Arr));
-        const save = JSON.stringify(Arr);
+        var getkey = data.map(function(item) { return item._key; }).indexOf(key);
+        data[getkey].title = this.state.title
+        data[getkey].description = this.state.description;   
+        this.props.dispatch(savedata(data));
+        const save = JSON.stringify(data);
         localStorage.setItem('data',save)
         this.setState({
             openEdit:false,
