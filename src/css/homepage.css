@@ -1,0 +1,24 @@
+.root{
+    width:70%;
+    margin: 0 auto ;
+
+}
+.container{
+ display: flex;
+ align-items: center;
+ justify-content: center;
+
+}
+
+.buttonH1{
+  position: absolute;  
+  right:0;
+  bottom:0;
+}
+.divH1{
+    position: relative;
+}
+
+.textlist{
+    width: 100%;
+}
