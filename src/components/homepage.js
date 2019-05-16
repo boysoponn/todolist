@@ -6,7 +6,6 @@ import Popup from './popup'
 import List from '@material-ui/core/List';
 import Add from '@material-ui/icons/Add';
 import '../css/homepage.css'
-import _ from 'lodash';
 
 class Homepage extends React.Component {
   state={

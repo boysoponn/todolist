@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import Homepage from './components/homepage';
 import { connect } from 'react-redux';
 import {savedata} from './components/actions';
-import _ from 'lodash';
 
 class App extends Component {
   state = {
